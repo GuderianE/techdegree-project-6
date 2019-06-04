@@ -40,29 +40,31 @@ const addPhraseToDisplay = (arr) => {
     }
 };
 
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
-
+// Checks if the guess matches a letter and returns the result
 const checkLetter = (guess) => {
-    let letter = document.querySelector('.letter');
-    letter = letter.textContent.toLowerCase();
+    const letter = document.querySelectorAll('.letter');
+    
     for (let i = 0; i < letter.length; i++) {
-        
-        if (letter[i] === guess.textContent.toLowerCase()) {
+        let show = letter.textContent.toLowerCase();
+        if (show[i] === guess.textContent.toLowerCase()) {
             letter.className += ' show';
-            const show = letter[i].textContent.toLowerCase();
-            return show;
-        } else {
-            return null;
-        }
+            const match = show[i];
+        } 
     }
+    return match;
 };
 
+// listens to the clicked button and disables it
 qwerty.addEventListener('click', (e) => {
     if (e.target.nodeName === 'BUTTON') {
         e.target.className = 'chosen';
         e.target.setAttribute('disabled', true);
+        checkLetter(e);
     }
 });
 
-checkLetter(qwerty);
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseArray);
+
+
+
