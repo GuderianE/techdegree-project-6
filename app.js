@@ -60,7 +60,18 @@ qwerty.addEventListener('click', (e) => {
     if (e.target.nodeName === 'BUTTON') {
         e.target.className = 'chosen';
         e.target.setAttribute('disabled', true);
-        checkLetter(e);
+        checkLetter(e.target); 
+    }
+    const letterFound = checkLetter(e.target);
+    if (letterFound === '') {
+        missed += 1;
+        console.log(missed);
+        const tries = document.querySelectorAll('.tries');
+        const img = document.querySelectorAll('img');
+        for (let i = 0; i < tries.length; i++) {
+            
+            tries[i].removeChild(img[i]);
+        }
     }
 });
 
