@@ -43,13 +43,13 @@ const addPhraseToDisplay = (arr) => {
 // Checks if the guess matches a letter and returns the result
 const checkLetter = (guess) => {
     const letter = document.querySelectorAll('.letter');
-    let match;
+    let match = 0;
     for (let i = 0; i < letter.length; i++) {
         let show = letter[i].textContent.toLowerCase();
         if (show === guess.textContent.toLowerCase()) {
             console.log('match');
             letter[i].className += ' show';
-            match = show;
+            match = true;
         } 
     }
     return match;
