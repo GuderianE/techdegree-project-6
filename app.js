@@ -1,10 +1,12 @@
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
-let missed = 0;
 const startBtn = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 const mainDiv = document.querySelector('.main-container');
 const keyRow = document.querySelector('.keyrow');
+const tries = document.getElementsByClassName('tries');
+
+let missed = 0;
 
 // removes overlay
 startBtn.addEventListener('click', (e) => {
@@ -42,8 +44,8 @@ const addPhraseToDisplay = (arr) => {
 
 // Checks if the guess matches a letter and returns the result
 const checkLetter = (guess) => {
+    let match = null;
     const letter = document.querySelectorAll('.letter');
-    let match = 0;
     for (let i = 0; i < letter.length; i++) {
         let show = letter[i].textContent.toLowerCase();
         if (show === guess.textContent.toLowerCase()) {
@@ -60,15 +62,31 @@ qwerty.addEventListener('click', (e) => {
     if (e.target.nodeName === 'BUTTON') {
         e.target.className = 'chosen';
         e.target.setAttribute('disabled', true);
-        checkLetter(e.target); 
-    }
-    const letterFound = checkLetter(e.target);
-    if (letterFound === null) {
-        missed += 1;
-        console.log('missed');
-        const tries = document.querySelectorAll('.tries');
+        const letterFound = checkLetter(e.target);
+        if (letterFound === null) {
+            missed += 1;
+            console.log('missed');
             tries[missed].style.display = 'none';
+        }
+        // checks if the player won or lost
+        const checkWin = () => {
+            const show = document.querySelectorAll('.show');
+            const letter = document.querySelectorAll('.letter');
+            if (tries >= 5) {
+                console.log('lose');
+                overlay.className = 'lose';
+                overlay.innerHTML = '<h1>You Lose</h1>'
+                mainDiv.appendChild(overlay);
+            } else if (show === letter) {
+                console.log('win');
+                overlay.className = 'win';
+                overlay.innerHTML = '<h1>You Won</h1>'
+                mainDiv.appendChild(overlay);
+            }
+        }
+        checkWin();
     }
+  
 });
 
 const phraseArray = getRandomPhraseAsArray(phrases);
