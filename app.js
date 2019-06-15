@@ -50,6 +50,7 @@ const checkLetter = (guess) => {
         let show = letter[i].textContent.toLowerCase();
         if (show === guess.textContent.toLowerCase()) {
             console.log('match');
+            letter[i].style.transition = 'all 1s';
             letter[i].className += ' show';
             match = true;
         } 
@@ -64,20 +65,20 @@ qwerty.addEventListener('click', (e) => {
         e.target.setAttribute('disabled', true);
         const letterFound = checkLetter(e.target);
         if (letterFound === null) {
+            tries[missed].style.display = 'none';
             missed += 1;
             console.log('missed');
-            tries[missed].style.display = 'none';
         }
         // checks if the player won or lost
         const checkWin = () => {
             const show = document.querySelectorAll('.show');
             const letter = document.querySelectorAll('.letter');
-            if (tries >= 5) {
+            if (missed >= 5) {
                 console.log('lose');
                 overlay.className = 'lose';
                 overlay.innerHTML = '<h1>You Lose</h1>'
                 mainDiv.appendChild(overlay);
-            } else if (show === letter) {
+            } else if (show.length === letter.length) {
                 console.log('win');
                 overlay.className = 'win';
                 overlay.innerHTML = '<h1>You Won</h1>'
@@ -91,6 +92,10 @@ qwerty.addEventListener('click', (e) => {
 
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
+
+const transitionLetter = () => {
+
+}
 
 
 
