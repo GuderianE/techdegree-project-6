@@ -76,12 +76,13 @@ qwerty.addEventListener('click', (e) => {
             if (missed >= 5) {
                 console.log('lose');
                 overlay.className = 'lose';
-                overlay.innerHTML = '<h1>You Lose</h1>'
+                overlay.innerHTML = '<h1>You Lose</h1>' + '<br>' + '<button class=btn__reset onclick=location=URL>Try again</button>';
                 mainDiv.appendChild(overlay);
+
             } else if (show.length === letter.length) {
                 console.log('win');
                 overlay.className = 'win';
-                overlay.innerHTML = '<h1>You Won</h1>'
+                overlay.innerHTML = '<h1>You Won</h1>' + '<br>' + '<button class=btn__reset onclick=location=URL>Play again</button>';
                 mainDiv.appendChild(overlay);
             }
         }
@@ -92,10 +93,3 @@ qwerty.addEventListener('click', (e) => {
 
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
-
-const transitionLetter = () => {
-
-}
-
-
-
